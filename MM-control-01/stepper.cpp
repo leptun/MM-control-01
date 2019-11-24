@@ -79,10 +79,10 @@ bool home_idler()
 	tmc2130_init(HOMING_MODE);
   shr16_set_led(2 << 2 * 0);
 
-	for (int c = 3; c > 0; c--)  // not really functional, let's do it rather more times to be sure
+	for (int c = 2; c > 0; c--)  // not really functional, let's do it rather more times to be sure
 	{
 		move(-350, 0, 0); // move a bit in opposite direction
-		delay(200);
+		delay(50);
 		move(300, 0, 0);
 		move_with_stallguard(2000, 0,0,TMC2130_SG_THR_2);
     //move(200, 0, 0); // move a bit in direction
@@ -231,7 +231,7 @@ void move_with_stallguard(int _idler, int _selector, int _pulley, int _sg)
     if (_selector > 0) { selector_step_pin_set();}
     if (_pulley > 0) { pulley_step_pin_set(); }
     asm("nop");
-    if (_idler > 0) { idler_step_pin_reset(); _idler--;  delayMicroseconds(1000); }
+    if (_idler > 0) { idler_step_pin_reset(); _idler--;  delayMicroseconds(700); }
     if (_selector > 0) { selector_step_pin_reset(); _selector--; delayMicroseconds(800); }
     if (_pulley > 0) { pulley_step_pin_reset(); _pulley--;  delayMicroseconds(700); }
     asm("nop");

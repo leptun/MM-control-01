@@ -79,12 +79,12 @@ bool home_idler()
 	tmc2130_init(HOMING_MODE);
   shr16_set_led(2 << 2 * 0);
 
-	move(-10, 0, 0); // move a bit in opposite direction
-
-	for (int c = 1; c > 0; c--)  // not really functional, let's do it rather more times to be sure
+	for (int c = 3; c > 0; c--)  // not really functional, let's do it rather more times to be sure
 	{
-		delay(50);
-		move_with_stallguard(2000, 0,0,0);
+		move(-350, 0, 0); // move a bit in opposite direction
+		delay(200);
+		move(300, 0, 0);
+		move_with_stallguard(2000, 0,0,TMC2130_SG_THR_2);
     //move(200, 0, 0); // move a bit in direction
 
 	}
@@ -114,7 +114,7 @@ bool home_selector()
 	{
 		move(0, c * -18, 0);
 		delay(50);
-		move_with_stallguard(0, 4000,0,5);
+		move_with_stallguard(0, 4000,0,TMC2130_SG_THR_1);
 
 	}
   shr16_set_led(2 << 2 * 3);
